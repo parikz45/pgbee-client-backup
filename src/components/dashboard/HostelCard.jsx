@@ -15,7 +15,7 @@ const HostelCard = ({ hostel }) => {
       <div className="w-full md:w-2/5 md:h-70 flex-shrink-0 flex gap-1 p-2">
         {/* Main Image */}
         <div className="w-3/4">
-          <img
+          <img  
             src={hostel.images[0]}
             alt={hostel.name}
             className="w-full h-48 md:h-65 object-cover rounded-xl"
