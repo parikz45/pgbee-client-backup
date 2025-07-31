@@ -24,6 +24,12 @@ const ICONS = {
   checkCircle: "M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z",
   menu: "M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z",
   filter: "M10 18h4v-2h-4v2zM3 6v2h18V6H3zm3 7h12v-2H6v2z",
+  whatsapp: "M16.75 13.96c.25.25.25.66 0 .91l-1.54 1.54c-.12.12-.28.19-.45.19-.17 0-.33-.07-.45-.19-1.22-.48-2.5-1.44-3.6-2.55-1.1-1.1-2.07-2.38-2.55-3.6-.25-.25-.25-.66 0-.91l1.54-1.54c.25-.25.66-.25.91 0l1.13 1.13c.25.25.25.66 0 .91L11.5 10.5c-.12.12-.19.28-.19.45s.07.33.19.45c.48 1.22 1.44 2.5 2.55 3.6 1.1 1.1 2.38 2.07 3.6 2.55.25.25.66.25.91 0l1.13-1.13c.25-.25.66-.25.91 0l1.13 1.13zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z",
+  instagram: "M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8A3.6 3.6 0 0 0 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6A3.6 3.6 0 0 0 16.4 4H7.6m9.65 1.5a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5M12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10m0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6z",
+  facebook: "M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z",
+  rupee: "M13.5 2.5H6v2h5.5c1.38 0 2.5 1.12 2.5 2.5S12.88 9.5 11.5 9.5H6v2h5.5c2.49 0 4.5 2.01 4.5 4.5s-2.01 4.5-4.5 4.5H6v2h7.5c3.59 0 6.5-2.91 6.5-6.5s-2.91-6.5-6.5-6.5z",
+  user: "M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z",
+  nearMe: "M12 8c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm8.94 3c-.46-4.17-3.77-7.48-7.94-7.94V1h-2v2.06C6.83 3.52 3.52 6.83 3.06 11H1v2h2.06c.46 4.17 3.77 7.48 7.94 7.94V23h2v-2.06c4.17-.46 7.48-3.77 7.94-7.94H23v-2h-2.06zM12 19c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7z",
 };
 
 // Dummy Data for Hostel Listings
@@ -39,11 +45,10 @@ const dummyHostels = [
     originalPrice: 5500,
     images: [
       '/house1.png',
-        '/house2.png',
-        '/house3.png',
-        '/house4.png',
-        '/house5.png',
-
+      '/house2.png',
+      '/house3.png',
+      '/house4.png',
+      '/house5.png',
     ],
   },
   {
@@ -56,11 +61,10 @@ const dummyHostels = [
     price: 4800,
     originalPrice: 5000,
     images: [
-      
       '/shelter_1.webp',
-        '/shelter_2.webp',
-        '/shelter_3.webp',
-        '/shelter_4.avif',
+      '/shelter_2.webp',
+      '/shelter_3.webp',
+      '/shelter_4.avif',
     ],
   },
     {
@@ -75,10 +79,9 @@ const dummyHostels = [
     images: [
       'niva(1).webp',
       'niva(2).webp',
-        'niva(3).webp',
-        'niva(4).webp',
-        'niva(5).webp',
-
+      'niva(3).webp',
+      'niva(4).webp',
+      'niva(5).webp',
     ],
   },
 ];
@@ -88,35 +91,45 @@ const Header = () => (
   <header className="bg-white shadow-sm py-3 px-4 sm:px-6 lg:px-8">
     <div className="container mx-auto flex justify-between items-center">
       <div className="flex items-center">
-        <h1 className="text-2xl font-bold text-gray-800">PgBee</h1>
+        <h1 className="text-3xl font-bold text-gray-800">
+            <span className="text-yellow-400">Pg</span>Bee
+        </h1>
       </div>
-      <div className="flex-1 max-w-xl mx-4 hidden sm:block">
-        <div className="relative">
-          <input
+      <div className="flex-1 max-w-xl mx-4 hidden sm:flex items-center border rounded-full shadow-sm">
+        <input
             type="text"
-            placeholder="Type a location..."
-            className="w-full py-2 pl-4 pr-20 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-500"
-          />
-          <button className="absolute right-0 top-0 h-full px-5 bg-gray-800 text-white rounded-r-lg hover:bg-gray-700 font-semibold">
+            placeholder="Bangalore, India"
+            className="w-full py-2 pl-6 pr-4 rounded-l-full focus:outline-none"
+        />
+        <button className="flex items-center bg-gray-100 text-gray-600 px-4 py-1.5 rounded-full mx-2 whitespace-nowrap text-sm hover:bg-gray-200">
+            <Icon path={ICONS.nearMe} className="w-4 h-4 mr-1" />
+            Near me
+        </button>
+        <button className="px-6 py-2 bg-gray-800 text-white rounded-full hover:bg-gray-700 font-semibold">
             Search
-          </button>
-        </div>
+        </button>
       </div>
-      <nav className="hidden md:flex items-center space-x-6 text-sm font-medium text-gray-600">
+      <nav className="hidden md:flex items-center space-x-4 text-sm font-medium text-gray-600">
         <a href="#" className="flex items-center hover:text-gray-900">
           <Icon path={ICONS.globe} className="w-5 h-5 mr-1" />
           <span>EN</span>
-          <Icon path={ICONS.chevronDown} className="w-4 h-4 ml-1" />
+        </a>
+        <a href="#" className="flex items-center hover:text-gray-900">
+          <Icon path={ICONS.rupee} className="w-5 h-5 mr-1" />
+          <span>INR</span>
         </a>
         <a href="#" className="flex items-center hover:text-gray-900">
           <Icon path={ICONS.heart} className="w-5 h-5 mr-1" />
           <span>Wishlist</span>
         </a>
-        <a href="#" className="hover:text-gray-900">Hello, Demo</a>
+        <a href="#" className="flex items-center hover:text-gray-900">
+            <Icon path={ICONS.user} className="w-5 h-5 mr-1" />
+            <span>Login / Signup</span>
+        </a>
       </nav>
       <div className="md:hidden">
         <button className="p-2 rounded-md text-gray-600 hover:bg-gray-100">
-            <Icon path={ICONS.menu} className="w-6 h-6" />
+            <Icon path={ICONS.search} className="w-6 h-6" />
         </button>
       </div>
     </div>
@@ -296,7 +309,7 @@ const HostelCard = ({ hostel }) => {
           />
         </div>
         {/* Vertical Thumbnails */}
-        <div className="w-1/4 flex flex-col gap-1  md:h-60">
+        <div className="w-1/4 flex flex-col gap-1 md:h-60">
           {displayedThumbnails.map((img, index) => (
             <div key={index} className="relative h-1/5">
               <img
@@ -364,15 +377,40 @@ const HostelCard = ({ hostel }) => {
   );
 };
 
+// Footer Component
+const Footer = () => (
+    <footer className="bg-white border-t">
+        <div className="container mx-auto py-4 px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center text-sm text-gray-600">
+            <div className="flex items-center space-x-4 mb-4 sm:mb-0">
+                <span>© 2025 PgBee</span>
+                <a href="#" className="hover:underline">Privacy</a>
+                <a href="#" className="hover:underline">Terms</a>
+                <a href="#" className="hover:underline">Company details</a>
+            </div>
+            <div className="flex items-center space-x-4">
+                <a href="#" className="text-gray-600 hover:text-gray-900">
+                    <Icon path={ICONS.whatsapp} className="w-5 h-5" />
+                </a>
+                <a href="#" className="text-gray-600 hover:text-gray-900">
+                    <Icon path={ICONS.instagram} className="w-5 h-5" />
+                </a>
+                <a href="#" className="text-gray-600 hover:text-gray-900">
+                    <Icon path={ICONS.facebook} className="w-5 h-5" />
+                </a>
+            </div>
+        </div>
+    </footer>
+);
+
 
 // Main App Component
 export default function App() {
   const [showFilters, setShowFilters] = useState(false);
 
   return (
-    <div className="bg-gray-50 min-h-screen font-sans">
+    <div className="bg-gray-50 min-h-screen font-sans flex flex-col">
       <Header />
-      <main className="container mx-auto py-8 px-4 sm:px-6 lg:px-8">
+      <main className="flex-grow container mx-auto py-8 px-4 sm:px-6 lg:px-8">
         <div className="lg:hidden mb-4">
             <button
                 onClick={() => setShowFilters(!showFilters)}
@@ -401,6 +439,7 @@ export default function App() {
           </div>
         </div>
       </main>
+      <Footer />
     </div>
   );
 }
