@@ -13,13 +13,12 @@ export default function LoginPage() {
   const [captchaChecked, setCaptchaChecked] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  
 
   const handleLogin = async () => {
-    // Reset errors
     setEmailError('');
     setPasswordError('');
 
-    // Validation
     if (!email) {
       setEmailError('Email is required');
       return;
@@ -34,14 +33,39 @@ export default function LoginPage() {
     }
 
     setIsLoading(true);
+
     try {
-      // Mock login logic
+      const BASE_URL = process.env.NEXT_PUBLIC_API_BASE;
+
+      const res = await fetch(`${BASE_URL}/auth/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      });
+
+      if (!res.ok) {
+        const { message } = await res.json();
+        alert(`Login failed: ${message || 'Unknown error'}`);
+        return;
+      }
+
+      const { accessToken, refreshToken } = await res.json();
+
+      localStorage.setItem('accessToken', accessToken);
+      localStorage.setItem('refreshToken', refreshToken);
+
       setShowModal(true);
       setTimeout(() => {
         router.push('/dashboard');
       }, 2000);
     } catch (error) {
       console.error('Login failed:', error);
+      alert('Something went wrong during login');
     } finally {
       setIsLoading(false);
     }
@@ -58,25 +82,16 @@ export default function LoginPage() {
       <div className="w-full max-w-md p-6 bg-white rounded-xl shadow-xl z-10">
         {/* Toggle Tabs */}
         <div className="flex mb-6 rounded-lg overflow-hidden border border-gray-300">
-          <button onClick={() => router.push("/auth/signup")} className="w-1/2 py-2 bg-white text-black font-medium">
+          <button
+            onClick={() => router.push('/auth/signup')}
+            className="w-1/2 py-2 bg-white text-black font-medium"
+          >
             Sign up
           </button>
           <button className="w-1/2 py-2 bg-black text-white font-medium">
             Log in
           </button>
         </div>
-
-          {/* <button className="w-full flex items-center justify-center gap-2 border border-gray-400 py-2 rounded-xl mb-6 hover:bg-gray-100">
-          <FcGoogle size={24} />
-          Sign up with Google
-        </button>
-
-     
-        <div className="flex items-center justify-center mb-6">
-          <hr className="w-1/3 border-gray-300" />
-          <span className="mx-2 text-gray-400 text-sm">OR</span>
-          <hr className="w-1/3 border-gray-300" />
-        </div> */}
 
         {/* Email Input */}
         <div className="mb-4">
@@ -111,16 +126,26 @@ export default function LoginPage() {
 
         {/* Forgot Password */}
         <div className="text-right mb-4">
-          <a href="#" className="text-sm text-gray-500 hover:underline">Forgot Your Password?</a>
+          <a href="#" className="text-sm text-gray-500 hover:underline">
+            Forgot Your Password?
+          </a>
         </div>
 
         {/* Captcha */}
         <div className="mb-6">
           <label className="block text-sm mb-1 text-gray-700">Verify Captcha</label>
           <div className="flex items-center border border-gray-300 rounded-md px-3 py-2 gap-2">
-            <input type="checkbox" checked={captchaChecked} onChange={() => setCaptchaChecked(!captchaChecked)} />
+            <input
+              type="checkbox"
+              checked={captchaChecked}
+              onChange={() => setCaptchaChecked(!captchaChecked)}
+            />
             <span className="text-sm">I’m not a robot</span>
-            <img src="https://www.gstatic.com/recaptcha/api2/logo_48.png" alt="reCAPTCHA" className="h-6 ml-auto" />
+            <img
+              src="https://www.gstatic.com/recaptcha/api2/logo_48.png"
+              alt="reCAPTCHA"
+              className="h-6 ml-auto"
+            />
           </div>
         </div>
 
@@ -130,7 +155,7 @@ export default function LoginPage() {
           disabled={isLoading}
           className="w-full bg-black text-white py-3 rounded-xl font-medium hover:bg-gray-800 disabled:bg-gray-400 disabled:cursor-not-allowed"
         >
-          {isLoading ? "Logging in..." : "Log In"}
+          {isLoading ? 'Logging in...' : 'Log In'}
         </button>
       </div>
 
@@ -138,7 +163,13 @@ export default function LoginPage() {
       {showModal && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
           <div className="bg-white p-6 rounded-xl shadow-lg text-center flex flex-col items-center">
-            <svg xmlns="http://www.w3.org/2000/svg" className="w-10 h-10 text-green-500 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="w-10 h-10 text-green-500 mb-2"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
             </svg>
             <p className="text-gray-700 font-semibold">Login successful!</p>

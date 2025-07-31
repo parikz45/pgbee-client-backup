@@ -1,5 +1,5 @@
 "use client";
-import { FcGoogle } from "react-icons/fc";
+
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
@@ -24,38 +24,25 @@ export default function SignupPage() {
           </button>
         </div>
 
-      
-        {/* <button className="w-full flex items-center justify-center gap-2 border border-gray-400 py-2 rounded-xl mb-6 hover:bg-gray-100">
-          <FcGoogle size={24} />
-          Sign up with Google
-        </button>
-
-     
-        <div className="flex items-center justify-center mb-6">
-          <hr className="w-1/3 border-gray-300" />
-          <span className="mx-2 text-gray-400 text-sm">OR</span>
-          <hr className="w-1/3 border-gray-300" />
-        </div> */}
-
         {/* First and Last Name */}
         <div className="flex gap-2 mb-4">
           <div className="w-1/2">
             <label className="block text-sm mb-1 text-gray-700">
-              First name <span className="text-red-500">*</span>
+              Name <span className="text-red-500">*</span>
             </label>
             <input
               type="text"
-              placeholder="Enter your first name"
+              placeholder="Enter your name"
               className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black"
             />
           </div>
           <div className="w-1/2">
             <label className="block text-sm mb-1 text-gray-700">
-              Last name <span className="text-red-500">*</span>
+              Phone <span className="text-red-500">*</span>
             </label>
             <input
               type="text"
-              placeholder="Enter your last name"
+              placeholder="Enter your phone"
               className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black"
             />
           </div>
