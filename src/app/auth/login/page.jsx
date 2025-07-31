@@ -45,7 +45,7 @@ export default function LoginPage() {
     try {
       const res = await api.post('/auth/login', { email, password });
 
-      const { accessToken, refreshToken } = res.data;
+      const { accessToken, refreshToken } = res.data.data;
       setTokens(accessToken, refreshToken);
 
       toast.success('Login successful! Redirecting...', {

@@ -27,7 +27,7 @@ export default function SignupPage() {
         role,
       });
 
-      const { accessToken, refreshToken } = res.data;
+      const { accessToken, refreshToken } = res.data.data;
       
       setTokens(accessToken, refreshToken);
 
