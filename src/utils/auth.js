@@ -1,6 +1,5 @@
 import Cookies from "js-cookie";
 
-
 export const setTokens = (accessToken, refreshToken) => {
   Cookies.set('accessToken', accessToken, { expires: 1 }); 
   Cookies.set('refreshToken', refreshToken, { expires: 30 }); 

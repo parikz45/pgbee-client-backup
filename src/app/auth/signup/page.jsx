@@ -1,10 +1,10 @@
 "use client";
 
+import { setTokens } from "@/utils/auth";
+import api from "@/utils/authInstance";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import api from "@/utils/authInstance";
-import { setTokens } from "@/utils/auth";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -28,6 +28,7 @@ export default function SignupPage() {
       });
 
       const { accessToken, refreshToken } = res.data;
+      
       setTokens(accessToken, refreshToken);
 
       toast.success("Signup successful! Redirecting...", {
