@@ -30,6 +30,7 @@ const ICONS = {
   rupee: "M13.5 2.5H6v2h5.5c1.38 0 2.5 1.12 2.5 2.5S12.88 9.5 11.5 9.5H6v2h5.5c2.49 0 4.5 2.01 4.5 4.5s-2.01 4.5-4.5 4.5H6v2h7.5c3.59 0 6.5-2.91 6.5-6.5s-2.91-6.5-6.5-6.5z",
   user: "M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z",
   nearMe: "M12 8c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm8.94 3c-.46-4.17-3.77-7.48-7.94-7.94V1h-2v2.06C6.83 3.52 3.52 6.83 3.06 11H1v2h2.06c.46 4.17 3.77 7.48 7.94 7.94V23h2v-2.06c4.17-.46 7.48-3.77 7.94-7.94H23v-2h-2.06zM12 19c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7z",
+  close: "M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z",
 };
 
 // Dummy Data for Hostel Listings
@@ -87,7 +88,7 @@ const dummyHostels = [
 ];
 
 // Header Component
-const Header = () => (
+const Header = ({ onMenuClick }) => (
   <header className="bg-white shadow-sm py-5 px-4 sm:px-6 lg:px-8">
     <div className="container mx-auto flex justify-between items-center">
       <div className="flex items-center">
@@ -128,13 +129,51 @@ const Header = () => (
         </a>
       </nav>
       <div className="md:hidden">
-        <button className="p-2 rounded-md text-gray-600 hover:bg-gray-100">
-            <Icon path={ICONS.search} className="w-6 h-6" />
+        <button onClick={onMenuClick} className="p-2 rounded-md text-gray-600 hover:bg-gray-100">
+            <Icon path={ICONS.menu} className="w-6 h-6" />
         </button>
       </div>
     </div>
   </header>
 );
+
+// Mobile Sidebar Component
+const MobileSidebar = ({ isOpen, onClose }) => {
+    if (!isOpen) return null;
+
+    return (
+        <div className="fixed inset-0 z-50">
+            {/* Overlay */}
+            <div className="absolute inset-0 bg-black opacity-50" onClick={onClose}></div>
+            
+            {/* Sidebar */}
+            <div className="absolute top-0 right-0 h-full w-64 bg-white shadow-xl p-6 transform transition-transform duration-300 ease-in-out">
+                <button onClick={onClose} className="absolute top-4 right-4 p-2 text-gray-500 hover:text-gray-800">
+                    <Icon path={ICONS.close} className="w-6 h-6" />
+                </button>
+                <nav className="mt-10 flex flex-col space-y-6 text-lg">
+                    <a href="#" className="flex items-center hover:text-gray-900">
+                        <Icon path={ICONS.globe} className="w-5 h-5 mr-2" />
+                        <span>EN</span>
+                    </a>
+                    <a href="#" className="flex items-center hover:text-gray-900">
+                        <Icon path={ICONS.rupee} className="w-5 h-5 mr-2" />
+                        <span>INR</span>
+                    </a>
+                    <a href="#" className="flex items-center hover:text-gray-900">
+                        <Icon path={ICONS.heart} className="w-5 h-5 mr-2" />
+                        <span>Wishlist</span>
+                    </a>
+                    <a href="/auth/login" className="flex items-center hover:text-gray-900">
+                        <Icon path={ICONS.user} className="w-5 h-5 mr-2" />
+                        <span>Login / Signup</span>
+                    </a>
+                </nav>
+            </div>
+        </div>
+    );
+};
+
 
 // Custom Checkbox Component
 const Checkbox = ({ label, name, checked, onChange }) => (
@@ -406,10 +445,12 @@ const Footer = () => (
 // Main App Component
 export default function App() {
   const [showFilters, setShowFilters] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
     <div className="bg-gray-50 min-h-screen font-sans flex flex-col">
-      <Header />
+      <Header onMenuClick={() => setIsMenuOpen(true)} />
+      <MobileSidebar isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
       <main className="flex-grow container mx-auto py-8 px-4 sm:px-6 lg:px-8">
         <div className="lg:hidden mb-4">
             <button
