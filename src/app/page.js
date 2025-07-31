@@ -105,7 +105,7 @@ const Header = () => (
             <Icon path={ICONS.nearMe} className="w-4 h-4 mr-1" />
             Near me
         </button>
-        <button className=" relative  left- px-6 py-2  bg-gray-800 text-white rounded-2xl hover:bg-gray-700 font-semibold">
+        <button className=" relative left- px-6 py-2 bg-gray-800 text-white rounded-2xl hover:bg-gray-700 font-semibold">
             Search
         </button>
       </div>
@@ -169,7 +169,7 @@ const FiltersSidebar = () => {
   };
 
   return (
-    <aside className=" relative w-full p-6 bg-white rounded-xl shadow-lg h-fill bottom-6 right-27 md:w-px-70 lg:w-70">
+    <aside className="w-full p-6 bg-white rounded-xl shadow-lg h-fit">
       <h2 className="text-2xl font-bold mb-6">Filters</h2>
 
       <div className="space-y-6">
@@ -358,7 +358,7 @@ const HostelCard = ({ hostel }) => {
           <p className="text-lg font-bold text-gray-900">₹{hostel.price.toLocaleString()}</p>
           <p className="text-base text-gray-400 line-through ml-2">₹{hostel.originalPrice.toLocaleString()}</p>
         </div>
-        <a href='#' className='relative text-sm  hover:underline bottom-3 text-blue-500'>Location</a>
+        <button className='text-sm text-blue-500 hover:underline focus:outline-none mb-2 text-left'>Location</button>
         <div className="flex items-center mt-auto">
           <div className="flex items-center space-x-2">
             <button className="px-5 py-2 text-base font-semibold border border-gray-400 text-gray-800 rounded-lg hover:bg-gray-100">
