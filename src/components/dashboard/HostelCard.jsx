@@ -46,7 +46,7 @@ const HostelCard = ({ hostel }) => {
       {/* Hostel Details */}
       <div className="p-4 flex flex-col flex-grow">
         <h3 className="text-2xl font-bold text-gray-900">{hostel.name}</h3>
-        <p className="text-lg text-gray-400 mb-2">{hostel.location}</p>
+        <p className="text-lg text-gray-400 mb-2">{hostel.address}</p>
         
         <div className="flex flex-wrap items-center text-sm text-gray-800 my-2 gap-x-4 gap-y-2">
           {displayedAmenities.map(amenity => (
@@ -72,7 +72,9 @@ const HostelCard = ({ hostel }) => {
           <p className="text-lg font-bold text-gray-900">₹{hostel.price.toLocaleString()}</p>
           <p className="text-base text-gray-400 line-through ml-2">₹{hostel.originalPrice.toLocaleString()}</p>
         </div>
-        <button className='text-sm text-blue-500 hover:underline focus:outline-none mb-2 text-left'>Location</button>
+        <a href={hostel.location} target="_blank">
+          <button className='text-sm text-blue-500 hover:underline focus:outline-none mb-2 text-left'>Location</button>
+        </a>
         <div className="flex items-center mt-auto">
           <div className="flex items-center space-x-2">
             <button className="px-5 py-2 text-base font-semibold border border-gray-400 text-gray-800 rounded-lg hover:bg-gray-100">

@@ -10,13 +10,11 @@ const Data = async () => {
         Authorization: `Bearer ${getAccessToken()}`,
       },
     });
-    console.log(response.data.data)
-   
     const hostelsRaw = response.data.data.hostels
-    
     const transformedData = hostelsRaw.map((hostel) => ({
       id: hostel.id,
       name: hostel.hostelName,
+      address: hostel.address,
       location: hostel.location,
       amenities: [
         ...(hostel.Ammenity?.wifi ? ['Free Wifi'] : []),
@@ -41,6 +39,7 @@ const Data = async () => {
       originalPrice: (hostel.Rents?.[0]?.rent || 0) + 500,
       images: hostel.files?.split(',').map((file) => file.trim()) || [],
     }));
+    console.log(location)
     return transformedData;
   } catch (error) {
     console.error('❌ Error fetching hostels:', error);
