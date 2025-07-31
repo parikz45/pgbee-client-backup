@@ -88,24 +88,24 @@ const dummyHostels = [
 
 // Header Component
 const Header = () => (
-  <header className="bg-white shadow-sm py-3 px-4 sm:px-6 lg:px-8">
+  <header className="bg-white shadow-sm py-5 px-4 sm:px-6 lg:px-8">
     <div className="container mx-auto flex justify-between items-center">
       <div className="flex items-center">
         <h1 className="text-3xl font-bold text-gray-800">
-            <span className="text-yellow-400">Pg</span>Bee
+            <img src="/PgBee.png" alt="PgBee Logo" className="h-8" />
         </h1>
       </div>
-      <div className="flex-1 max-w-xl mx-4 hidden sm:flex items-center border rounded-full shadow-sm">
+      <div className=" max-w-xl mx-4 hidden sm:flex items-center border rounded-full shadow-sm">
         <input
             type="text"
             placeholder="Bangalore, India"
-            className="w-full py-2 pl-6 pr-4 rounded-l-full focus:outline-none"
+            className="w-full py-2 pl-3 pr-4 lg:px-4 rounded-l-full focus:outline-none"
         />
         <button className="flex items-center bg-gray-100 text-gray-600 px-4 py-1.5 rounded-full mx-2 whitespace-nowrap text-sm hover:bg-gray-200">
             <Icon path={ICONS.nearMe} className="w-4 h-4 mr-1" />
             Near me
         </button>
-        <button className="px-6 py-2 bg-gray-800 text-white rounded-full hover:bg-gray-700 font-semibold">
+        <button className=" relative  left- px-6 py-2  bg-gray-800 text-white rounded-2xl hover:bg-gray-700 font-semibold">
             Search
         </button>
       </div>
@@ -122,7 +122,7 @@ const Header = () => (
           <Icon path={ICONS.heart} className="w-5 h-5 mr-1" />
           <span>Wishlist</span>
         </a>
-        <a href="#" className="flex items-center hover:text-gray-900">
+        <a href="/auth/login" className="flex items-center hover:text-gray-900">
             <Icon path={ICONS.user} className="w-5 h-5 mr-1" />
             <span>Login / Signup</span>
         </a>
@@ -169,7 +169,7 @@ const FiltersSidebar = () => {
   };
 
   return (
-    <aside className="w-full p-6 bg-white rounded-xl shadow-lg h-fit">
+    <aside className=" relative w-full p-6 bg-white rounded-xl shadow-lg h-fill bottom-6 right-27 md:w-px-70 lg:w-70">
       <h2 className="text-2xl font-bold mb-6">Filters</h2>
 
       <div className="space-y-6">
@@ -201,7 +201,7 @@ const FiltersSidebar = () => {
             max="15000"
             value={price}
             onChange={(e) => setPrice(e.target.value)}
-            className="w-full h-1 bg-gray-200 rounded-lg appearance-none cursor-pointer range-slider"
+            className="w-full h-1 bg-black rounded-lg appearance-none cursor-pointer range-slider"
           />
           <div className="flex justify-between text-sm text-gray-500 mt-1">
             <span>₹{Number(1000).toLocaleString()}</span>
@@ -358,7 +358,7 @@ const HostelCard = ({ hostel }) => {
           <p className="text-lg font-bold text-gray-900">₹{hostel.price.toLocaleString()}</p>
           <p className="text-base text-gray-400 line-through ml-2">₹{hostel.originalPrice.toLocaleString()}</p>
         </div>
-
+        <a href='#' className='relative text-sm  hover:underline bottom-3 text-blue-500'>Location</a>
         <div className="flex items-center mt-auto">
           <div className="flex items-center space-x-2">
             <button className="px-5 py-2 text-base font-semibold border border-gray-400 text-gray-800 rounded-lg hover:bg-gray-100">
