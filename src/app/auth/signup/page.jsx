@@ -41,7 +41,7 @@ export default function SignupPage() {
       });
 
       setTimeout(() => {
-        router.push("/dashboard");
+        router.push("/");
       }, 2000);
     } catch (error) {
       toast.error(error?.response?.data?.message || "Signup failed", {
