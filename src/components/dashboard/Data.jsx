@@ -16,6 +16,8 @@ const Data = async () => {
       name: hostel.hostelName,
       address: hostel.address,
       location: hostel.location,
+      phone: hostel.phone,
+      sex: hostel.gender,
       amenities: [
         ...(hostel.Ammenity?.wifi ? ['Free Wifi'] : []),
         ...(hostel.Ammenity?.ac ? ['AC'] : []),
@@ -37,9 +39,9 @@ const Data = async () => {
       reviews: hostel.Reviews?.length || 0,
       price: hostel.Rents?.[0]?.rent || 0,
       originalPrice: (hostel.Rents?.[0]?.rent || 0) + 500,
-      images: hostel.files?.split(',').map((file) => file.trim()) || [],
+      images: hostel.Files?.map((file) => file.Location) || [],
     }));
-    console.log(location)
+    console.log(hostelsRaw)
     return transformedData;
   } catch (error) {
     console.error('❌ Error fetching hostels:', error);

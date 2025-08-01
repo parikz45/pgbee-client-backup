@@ -72,13 +72,14 @@ const HostelCard = ({ hostel }) => {
           <p className="text-lg font-bold text-gray-900">₹{hostel.price.toLocaleString()}</p>
           <p className="text-base text-gray-400 line-through ml-2">₹{hostel.originalPrice.toLocaleString()}</p>
         </div>
+        <p>gender : {hostel.sex}</p>
         <a href={hostel.location} target="_blank">
           <button className='text-sm text-blue-500 hover:underline focus:outline-none mb-2 text-left'>Location</button>
         </a>
         <div className="flex items-center mt-auto">
           <div className="flex items-center space-x-2">
             <button className="px-5 py-2 text-base font-semibold border border-gray-400 text-gray-800 rounded-lg hover:bg-gray-100">
-              View Details
+              {hostel.phone}
             </button>
             <button className="px-5 py-2 text-base font-semibold bg-gray-900 text-white rounded-lg hover:bg-gray-800">
               Book Now
