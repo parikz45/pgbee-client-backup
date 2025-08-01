@@ -40,7 +40,7 @@ const MobileSidebar = ({ isOpen, onClose }) => {
                         className="p-5 flex items-center cursor-grab" 
                         onClick={handleLogout}
                     >
-                        <Icon path={ICONS.user} className="w-5 h-5 mr-1" />
+                        <Icon path={ICONS.user} className=" relative w-5 h-5 mr-1 py-1 px-3.5" />
                         <span>Logout</span>
                     </button>
                 </nav>
