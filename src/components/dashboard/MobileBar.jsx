@@ -1,11 +1,21 @@
 import { Icon, ICONS } from "./Icons";
-import Cookies from "js-cookie"; 
-const handleLogout = () => {
-  Cookies.remove("accessToken");
-  Cookies.remove("refreshToken");
-  window.location.reload(); 
-};
+import Cookies from "js-cookie";
+import { useRouter } from 'next/navigation';
+
 const MobileSidebar = ({ isOpen, onClose }) => {
+    const router = useRouter();
+
+    const handleLogout = () => {
+        Cookies.remove("accessToken");
+        Cookies.remove("refreshToken");
+        window.location.reload();
+    };
+
+    const handleSettingsClick = () => {
+        router.push('/settings');
+        onClose(); // Close the sidebar after navigation
+    };
+
     if (!isOpen) return null;
 
     return (
@@ -19,22 +29,20 @@ const MobileSidebar = ({ isOpen, onClose }) => {
                     <Icon path={ICONS.close} className="w-6 h-6" />
                 </button>
                 <nav className="mt-10 flex flex-col space-y-6 text-lg">
-                    <a href="#" className="flex items-center hover:text-gray-900">
-                        <Icon path={ICONS.globe} className="w-5 h-5 mr-2" />
-                        <span>EN</span>
-                    </a>
-                    <a href="#" className="flex items-center hover:text-gray-900">
-                        <Icon path={ICONS.rupee} className="w-5 h-5 mr-2" />
-                        <span>INR</span>
-                    </a>
-                    <a href="#" className="flex items-center hover:text-gray-900">
-                        <Icon path={ICONS.heart} className="w-5 h-5 mr-2" />
-                        <span>Wishlist</span>
-                    </a>
-                    <button className="p-5 flex items-center cursor-grab" onClick={handleLogout}>
-                              <Icon path={ICONS.user} className="w-5 h-5 mr-1" />
-                              <span>Logout</span>
-                            </button>
+                    <button 
+                        onClick={handleSettingsClick}
+                        className="p-5 flex items-center hover:text-gray-900"
+                    >
+                        <Icon path={ICONS.settings} className="w-5 h-5 mr-2" />
+                        <span>Settings</span>
+                    </button>
+                    <button 
+                        className="p-5 flex items-center cursor-grab" 
+                        onClick={handleLogout}
+                    >
+                        <Icon path={ICONS.user} className="w-5 h-5 mr-1" />
+                        <span>Logout</span>
+                    </button>
                 </nav>
             </div>
         </div>
