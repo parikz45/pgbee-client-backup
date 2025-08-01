@@ -1,5 +1,10 @@
-import { ICONS } from "./Icons";
-
+import { Icon, ICONS } from "./Icons";
+import Cookies from "js-cookie"; 
+const handleLogout = () => {
+  Cookies.remove("accessToken");
+  Cookies.remove("refreshToken");
+  window.location.reload(); 
+};
 const MobileSidebar = ({ isOpen, onClose }) => {
     if (!isOpen) return null;
 
@@ -26,10 +31,10 @@ const MobileSidebar = ({ isOpen, onClose }) => {
                         <Icon path={ICONS.heart} className="w-5 h-5 mr-2" />
                         <span>Wishlist</span>
                     </a>
-                    <a href="/auth/login" className="flex items-center hover:text-gray-900">
-                        <Icon path={ICONS.user} className="w-5 h-5 mr-2" />
-                        <span>Login / Signup</span>
-                    </a>
+                    <button className="p-5 flex items-center cursor-grab" onClick={handleLogout}>
+                              <Icon path={ICONS.user} className="w-5 h-5 mr-1" />
+                              <span>Logout</span>
+                            </button>
                 </nav>
             </div>
         </div>
