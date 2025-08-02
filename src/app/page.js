@@ -8,21 +8,26 @@ import HostelCard from '@/components/dashboard/HostelCard';
 import { Icon, ICONS } from '@/components/dashboard/Icons';
 import MobileSidebar from '@/components/dashboard/MobileBar';
 import FiltersSidebar from '@/components/dashboard/SideBar';
+import ActiveFilters from '@/components/dashboard/ActiveFilters';
+import { FilterProvider, useFilters } from '@/contexts/FilterContext';
 
-export default function App() {
+function AppContent() {
   const [showFilters, setShowFilters] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [hostels, setHostels] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { filterHostels, filters } = useFilters();
 
   useEffect(() => {
     const fetchHostels = async () => {
       try {
         const result = await Data();
-        console.log('✅ Fetched hostels:', result);
+        console.log('✅ Fetched accommodations:', result);
         setHostels(result);
       } catch (error) {
-        console.error('❌ Failed to load hostels:', error);
+        console.error('❌ Failed to load accommodations:', error);
+        // Set some mock data or empty array if API fails
+        setHostels([]);
       } finally {
         setLoading(false);
       }
@@ -30,6 +35,20 @@ export default function App() {
 
     fetchHostels();
   }, []);
+
+  // Filter hostels based on current filter state
+  const filteredHostels = filterHostels(hostels);
+
+  // Dynamic title based on place type filter
+  const getDisplayTitle = () => {
+    if (filters.placeType === 'PG') {
+      return 'PGs';
+    } else if (filters.placeType === 'Hostel') {
+      return 'Hostels';
+    } else {
+      return 'Accommodations (Hostels & PGs)';
+    }
+  };
 
   return (
     <div className="bg-gray-50 min-h-screen font-sans flex flex-col">
@@ -56,20 +75,25 @@ export default function App() {
 
           {/* Main content */}
           <div className="w-full lg:w-3/4 xl:w-4/5">
+            <ActiveFilters />
+            
             <h2 className="text-lg font-semibold text-gray-700 mb-4">
-              Hostels in College Of Engineering, Trivandrum ({hostels.length} search results)
+              {getDisplayTitle()} in College Of Engineering, Trivandrum ({filteredHostels.length} search results)
             </h2>
 
             {loading ? (
-              <p className="text-gray-500">Loading hostels...</p>
-            ) : Array.isArray(hostels) && hostels.length > 0 ? (
+              <p className="text-gray-500">Loading accommodations...</p>
+            ) : Array.isArray(filteredHostels) && filteredHostels.length > 0 ? (
               <div>
-                {hostels.map((hostel) => (
+                {filteredHostels.map((hostel) => (
                   <HostelCard key={hostel.id} hostel={hostel} />
                 ))}
               </div>
             ) : (
-              <p className="text-gray-500">No hostels found.</p>
+              <div className="text-center py-8">
+                <p className="text-gray-500 text-lg">No accommodations match your current filters.</p>
+                <p className="text-gray-400 text-sm mt-2">Try adjusting your filters to see more results.</p>
+              </div>
             )}
           </div>
         </div>
@@ -77,5 +101,13 @@ export default function App() {
 
       <Footer />
     </div>
+  );
+}
+
+export default function App() {
+  return (
+    <FilterProvider>
+      <AppContent />
+    </FilterProvider>
   );
 }

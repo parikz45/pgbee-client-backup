@@ -1,11 +1,36 @@
 import { Icon, ICONS } from "./Icons";
-import Cookies from "js-cookie"; 
-const handleLogout = () => {
-  Cookies.remove("accessToken");
-  Cookies.remove("refreshToken");
-  window.location.reload(); 
-};
+import Cookies from "js-cookie";
+import { useRouter } from 'next/navigation';
+import { useState, useEffect } from 'react';
+
 const MobileSidebar = ({ isOpen, onClose }) => {
+    const router = useRouter();
+    const [isClient, setIsClient] = useState(false);
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+    useEffect(() => {
+        setIsClient(true);
+        const token = Cookies.get("accessToken");
+        setIsAuthenticated(!!token);
+    }, [isOpen]); // Re-check when sidebar opens
+
+    const handleLogout = () => {
+        Cookies.remove("accessToken");
+        Cookies.remove("refreshToken");
+        setIsAuthenticated(false);
+        window.location.reload();
+    };
+
+    const handleLoginSignup = () => {
+        router.push("/auth/login");
+        onClose(); // Close the sidebar after navigation
+    };
+
+    const handleSettingsClick = () => {
+        router.push('/settings');
+        onClose(); // Close the sidebar after navigation
+    };
+
     if (!isOpen) return null;
 
     return (
@@ -31,10 +56,25 @@ const MobileSidebar = ({ isOpen, onClose }) => {
                         <Icon path={ICONS.heart} className="w-5 h-5 mr-2" />
                         <span>Wishlist</span>
                     </a>
-                    <button className="p-5 flex items-center cursor-grab" onClick={handleLogout}>
-                              <Icon path={ICONS.user} className="w-5 h-5 mr-1" />
-                              <span>Logout</span>
+                    {isClient && (
+                        isAuthenticated ? (
+                            <button 
+                                className="flex items-center cursor-pointer hover:text-gray-900" 
+                                onClick={handleLogout}
+                            >
+                                <Icon path={ICONS.user} className="w-5 h-5 mr-2" />
+                                <span>Logout</span>
                             </button>
+                        ) : (
+                            <button 
+                                className="flex items-center cursor-pointer hover:text-gray-900" 
+                                onClick={handleLoginSignup}
+                            >
+                                <Icon path={ICONS.user} className="w-5 h-5 mr-2" />
+                                <span>Login/Signup</span>
+                            </button>
+                        )
+                    )}
                 </nav>
             </div>
         </div>
