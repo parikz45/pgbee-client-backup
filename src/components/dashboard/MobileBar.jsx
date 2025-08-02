@@ -1,14 +1,29 @@
 import { Icon, ICONS } from "./Icons";
 import Cookies from "js-cookie";
 import { useRouter } from 'next/navigation';
+import { useState, useEffect } from 'react';
 
 const MobileSidebar = ({ isOpen, onClose }) => {
     const router = useRouter();
+    const [isClient, setIsClient] = useState(false);
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+    useEffect(() => {
+        setIsClient(true);
+        const token = Cookies.get("accessToken");
+        setIsAuthenticated(!!token);
+    }, [isOpen]); // Re-check when sidebar opens
 
     const handleLogout = () => {
         Cookies.remove("accessToken");
         Cookies.remove("refreshToken");
+        setIsAuthenticated(false);
         window.location.reload();
+    };
+
+    const handleLoginSignup = () => {
+        router.push("/auth/login");
+        onClose(); // Close the sidebar after navigation
     };
 
     const handleSettingsClick = () => {
@@ -29,20 +44,37 @@ const MobileSidebar = ({ isOpen, onClose }) => {
                     <Icon path={ICONS.close} className="w-6 h-6" />
                 </button>
                 <nav className="mt-10 flex flex-col space-y-6 text-lg">
-                    <button 
-                        onClick={handleSettingsClick}
-                        className="p-5 flex items-center hover:text-gray-900"
-                    >
-                        <Icon path={ICONS.settings} className="w-5 h-5 mr-2" />
-                        <span>Settings</span>
-                    </button>
-                    <button 
-                        className="p-5 flex items-center cursor-grab" 
-                        onClick={handleLogout}
-                    >
-                        <Icon path={ICONS.user} className=" relative w-5 h-5 mr-1 py-1 px-3.5" />
-                        <span>Logout</span>
-                    </button>
+                    <a href="#" className="flex items-center hover:text-gray-900">
+                        <Icon path={ICONS.globe} className="w-5 h-5 mr-2" />
+                        <span>EN</span>
+                    </a>
+                    <a href="#" className="flex items-center hover:text-gray-900">
+                        <Icon path={ICONS.rupee} className="w-5 h-5 mr-2" />
+                        <span>INR</span>
+                    </a>
+                    <a href="#" className="flex items-center hover:text-gray-900">
+                        <Icon path={ICONS.heart} className="w-5 h-5 mr-2" />
+                        <span>Wishlist</span>
+                    </a>
+                    {isClient && (
+                        isAuthenticated ? (
+                            <button 
+                                className="flex items-center cursor-pointer hover:text-gray-900" 
+                                onClick={handleLogout}
+                            >
+                                <Icon path={ICONS.user} className="w-5 h-5 mr-2" />
+                                <span>Logout</span>
+                            </button>
+                        ) : (
+                            <button 
+                                className="flex items-center cursor-pointer hover:text-gray-900" 
+                                onClick={handleLoginSignup}
+                            >
+                                <Icon path={ICONS.user} className="w-5 h-5 mr-2" />
+                                <span>Login/Signup</span>
+                            </button>
+                        )
+                    )}
                 </nav>
             </div>
         </div>

@@ -1,14 +1,27 @@
 import { Icon, ICONS } from "./Icons";
 import Cookies from "js-cookie";
-import { useRouter } from 'next/navigation';
+import { useRouter } from "next/navigation";
+import { useState, useEffect } from "react";
+import NoSSR from "../NoSSR";
 
 const Header = ({ onMenuClick }) => {
   const router = useRouter();
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    const token = Cookies.get("accessToken");
+    setIsAuthenticated(!!token);
+  }, []);
 
   const handleLogout = () => {
     Cookies.remove("accessToken");
     Cookies.remove("refreshToken");
+    setIsAuthenticated(false);
     window.location.reload();
+  };
+
+  const handleLoginSignup = () => {
+    router.push("/auth/login");
   };
 
   return (
@@ -39,7 +52,7 @@ const Header = ({ onMenuClick }) => {
 
         {/* Desktop Nav */}
         <nav className="hidden md:flex items-center space-x-4 text-sm font-medium text-gray-600">
-          {/* <a href="#" className="flex items-center hover:text-gray-900">
+          <a href="#" className="flex items-center hover:text-gray-900">
             <Icon path={ICONS.globe} className="w-5 h-5 mr-1" />
             <span>EN</span>
           </a>
@@ -50,18 +63,21 @@ const Header = ({ onMenuClick }) => {
           <a href="#" className="flex items-center hover:text-gray-900">
             <Icon path={ICONS.heart} className="w-5 h-5 mr-1" />
             <span>Wishlist</span>
-          </a> */}
-          <button 
-            onClick={() => router.push('/settings')} 
-            className="flex items-center hover:text-gray-900"
-          >
-            <Icon path={ICONS.settings} className="w-5 h-5 mr-1" />
-            <span>Settings</span>
-          </button>
-          <button className="p-5 flex items-center cursor-grab" onClick={handleLogout}>
-            <Icon path={ICONS.user} className="w-5 h-5 mr-1" />
-            <span>Logout</span>
-          </button>
+          </a>
+          {/* Auth section */}
+          <NoSSR>
+            {isAuthenticated ? (
+              <button className="p-5 flex items-center cursor-pointer" onClick={handleLogout}>
+                <Icon path={ICONS.user} className="w-5 h-5 mr-1" />
+                <span>Logout</span>
+              </button>
+            ) : (
+              <button className="p-5 flex items-center cursor-pointer" onClick={handleLoginSignup}>
+                <Icon path={ICONS.user} className="w-5 h-5 mr-1" />
+                <span>Login/Signup</span>
+              </button>
+            )}
+          </NoSSR>
         </nav>
 
         {/* Mobile Menu Toggle */}

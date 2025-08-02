@@ -5,10 +5,16 @@ const BASE_URL = process.env.NEXT_PUBLIC_API_BASE;
 
 const Data = async () => {
   try {
+    const token = getAccessToken();
+    const headers = {};
+    
+    // Only include Authorization header if token exists
+    if (token) {
+      headers.Authorization = `Bearer ${token}`;
+    }
+
     const response = await axios.get(`${BASE_URL}/hostel`, {
-      headers: {
-        Authorization: `Bearer ${getAccessToken()}`,
-      },
+      headers,
     });
     const hostelsRaw = response.data.data.hostels
     const transformedData = hostelsRaw.map((hostel) => ({
