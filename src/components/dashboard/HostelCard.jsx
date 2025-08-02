@@ -79,7 +79,7 @@ const HostelCard = ({ hostel }) => {
         <div className="flex items-center mt-auto">
           <div className="flex items-center space-x-2">
             <button className="px-5 py-2 text-base font-semibold border border-gray-400 text-gray-800 rounded-lg hover:bg-gray-100">
-              {hostel.phone}
+              View Details
             </button>
             <button className="px-5 py-2 text-base font-semibold bg-gray-900 text-white rounded-lg hover:bg-gray-800">
               Book Now
