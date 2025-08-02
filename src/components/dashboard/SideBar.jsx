@@ -39,7 +39,7 @@ const FiltersSidebar = () => {
                     : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50'
                 }`}
               >
-                {gender === 'Boys' ? 'Boys Only' : gender === 'Girls' ? 'Girls Only' : 'Any'}
+                {gender === 'Boys' ? 'Boys' : gender === 'Girls' ? 'Girls' : 'Any'}
               </button>
             ))}
           </div>
